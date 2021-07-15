@@ -1,3 +1,4 @@
+require('dotenv').config(); // beolvassa a .env file tartalmát
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -7,12 +8,14 @@ const logger = require('./config/logger');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const port = 3000;
+// legyen a port vagy a .env-ben meghatározott, vagy 3000
+const port = process.env.PORT || 3000;
 
 // kapcsolódás az adatbázishoz
 mongoose
     .connect(
-        'mongodb+srv://dbUser:dbUserPassword@cluster0.6apci.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      //'mongodb+srv://dbUser:dbUserPassword@cluster0.6apci.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+        `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}`,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -49,4 +52,3 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
-

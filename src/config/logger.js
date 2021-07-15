@@ -4,12 +4,12 @@ const winston = require('winston');
 // beállítjuk a logolás opcióit külön a file és console logokra.
 const options = {
     file: {
-        level: 'info',
+        level: process.env.LOG_LEVEL_FILE,
         filename: path.join(__dirname, '../../app.log'),
         format: winston.format.json(),
     },
     console: {
-        level: 'debug',
+        level: process.env.LOG_LEVEL_CONSOLE,
     },
 };
 
