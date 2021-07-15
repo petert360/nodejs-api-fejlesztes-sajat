@@ -2,17 +2,14 @@ const express = require('express');
 // Eltávolítjuk mert a mongoDB-t fogjuk használni
 // const data = require('./data');
 const createError = require('http-errors');
-const Person = require('../../models/person.model');
 
 const logger = require('../../config/logger');
+// A Person modell importot eltávolítjuk, helyette importáljuk a personService-t
+// const Person = require('../../models/person.model');
+// az eddigi Person helyett mindenhol sersonService legyen
+const personService = require('./person.service');
 
 const controller = express.Router();
-
-controller.get('/', async (req, res) => {
-    const people = await Person.find();
-    logger.debug(`Get all persons, returning ${people.length} items.`);
-    res.json(people);
-});
 
 // Get one person.
 // hasonít az összes személy lekéréséhez, de ID alapján csak egyet adunk vissza.
@@ -27,26 +24,43 @@ controller.get('/:id', async (req, res, next) => {
 // Create a new person.
 // A fő url-re hívjuk meg.
 // felvesszük a next paraméter függvényt, ami továbbdobja a kérést
-controller.post('/', async (req, res, next) => {
+// metódusneveket fogunk felvenni, itt az exports.create-t.
+exports.create = (req, res, next) => {
     const { last_name, first_name, email } = req.body;
     if (!last_name || !first_name || !email) {
         // a next() megszakítja a folyamatot és a következő middelwarenek továbbíja a kérést
         return next(new createError.BadRequest('Missing properties'));
     }
 
-    // A mongoose létrehoz egy új objektumoot
-    const newPerson = new Person({
+    const newPerson = {
         firstName: req.body['first_name'],
         lastName: req.body['last_name'],
         email: req.body['email'],
-    });
+    };
 
-    // Elmentjük az adatbázisba
-    newPerson.save().then(data => {
-        res.status(201);
-        res.json(data);
+    return (
+        personService
+            .create(newPerson)
+            .then(cp => {
+                res.status(201);
+                res.json(cp);
+            })
+            // beillesztünk egy hibakezelő kódot:
+            .catch(err =>
+                next(new createError.InternalServerError(err.message))
+            )
+    );
+};
+
+// Read - all
+exports.findAll = (req, res, next) => {
+    return personService.findOne(req.params.id).then(person => {
+        if (!person) {
+            return next(new createError.NotFound('Person not found'));
+        }
+        return person;
     });
-});
+};
 
 // Update a person.
 controller.put('/:id', async (req, res, next) => {
