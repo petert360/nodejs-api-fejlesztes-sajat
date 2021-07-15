@@ -1,4 +1,5 @@
 require('dotenv').config(); // beolvassa a .env file tartalmát
+const config = require('config'); // config beolvasása
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -11,11 +12,19 @@ mongoose.Promise = global.Promise;
 // legyen a port vagy a .env-ben meghatározott, vagy 3000
 const port = process.env.PORT || 3000;
 
+// a kapcsolódás előtt megvizsgáljuk, hogy a config megfelelő beállításai léteznek-e
+if (!config.has('database')) {
+    logger.error('No database config found.');
+    process.exit();
+}
+// ha létezik a config, akkor eelmentjük az értékeket változókba
+const {username, password, host} = config.get('database');
+
 // kapcsolódás az adatbázishoz
 mongoose
     .connect(
-      //'mongodb+srv://dbUser:dbUserPassword@cluster0.6apci.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-        `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}`,
+        //'mongodb+srv://dbUser:dbUserPassword@cluster0.6apci.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+        `mongodb+srv://${username}:${password}@${host}`,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
