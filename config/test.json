@@ -1,0 +1,7 @@
+{
+    "database": {
+        "username": "dbUser",
+        "password": "dbUserPassword",
+        "host": "cluster0.6apci.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    }
+}
