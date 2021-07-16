@@ -47,7 +47,9 @@ app.use(morgan('combined', { stream: logger.stream }));
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
-app.use('/person', require('./controllers/person/routes'));
+// A refaktorálás után erre sorra nincs szükség:
+// app.use('/person', require('./controllers/person/routes'));
+app.use('/person', require('./controllers/person/person.routes'));
 
 app.use((err, req, res, next) => {
     //console.error(`ERR ${err.statusCode}: ${err.message}`);

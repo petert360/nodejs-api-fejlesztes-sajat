@@ -1,29 +1,9 @@
 const express = require('express');
-// Eltávolítjuk mert a mongoDB-t fogjuk használni
-// const data = require('./data');
 const createError = require('http-errors');
 
-const logger = require('../../config/logger');
-// A Person modell importot eltávolítjuk, helyette importáljuk a personService-t
-// const Person = require('../../models/person.model');
-// az eddigi Person helyett mindenhol sersonService legyen
 const personService = require('./person.service');
 
-const controller = express.Router();
-
-// Get one person.
-// hasonít az összes személy lekéréséhez, de ID alapján csak egyet adunk vissza.
-controller.get('/:id', async (req, res, next) => {
-    const person = await Person.findById(req.params.id);
-    if (!person) {
-        return next(new createError.NotFound('Person not found'));
-    }
-    res.json(person);
-});
-
 // Create a new person.
-// A fő url-re hívjuk meg.
-// felvesszük a next paraméter függvényt, ami továbbdobja a kérést
 // metódusneveket fogunk felvenni, itt az exports.create-t.
 exports.create = (req, res, next) => {
     const { last_name, first_name, email } = req.body;
@@ -54,6 +34,13 @@ exports.create = (req, res, next) => {
 
 // Read - all
 exports.findAll = (req, res, next) => {
+    return personService.findAll().then(people => {
+        res.json(people);
+    });
+};
+
+// Read - one
+exports.findOne = (req, res, next) => {
     return personService.findOne(req.params.id).then(person => {
         if (!person) {
             return next(new createError.NotFound('Person not found'));
@@ -62,8 +49,8 @@ exports.findAll = (req, res, next) => {
     });
 };
 
-// Update a person.
-controller.put('/:id', async (req, res, next) => {
+// Update
+exports.update = (req, res, next) => {
     const id = req.params.id;
     // az id-t számmá alakítva vizsgáljuk
     const index = data.findIndex(p => p.id === Number(id));
@@ -78,31 +65,22 @@ controller.put('/:id', async (req, res, next) => {
         email: req.body['email'],
     };
 
-    // a { new: true } opció gondoskodik arról, hogy ha nem létezik felhasználó, akkor létrehozza
-    // hibakezelés miatt try-catch blokkban
-    let person = {};
-    try {
-        person = await Person.findByIdAndUpdate(id, update, {
-            new: true,
-            useFindAndModify: false,
+    return personService
+        .update(req.params.id, update)
+        .then(person => {
+            res.json(person);
+        })
+        .catch(err => {
+            next(new createError.InternalServerError(err.message));
         });
-    } catch {
-        return next(new createError.BadRequest(err));
-    }
-    return res.json(person);
-});
+};
 
-// Delete one person.
-// delete metódus segítségével. Az update findIndex részét tudjuk újra hasznosítani
-controller.delete('/:id', async (req, res, next) => {
-    const { id } = req.params;
-    try {
-        const person = await Person.findByIdAndDelete(id);
-    } catch (err) {
-        return next(new createError.NotFound('Person not found'));
-    }
-    // visszaadhatjuk a tömb új hosszát vagy egy üres objektumot.
-    res.json({});
-});
-
-module.exports = controller;
+// Delete
+exports.delete = (req, res, next) => {
+    return personService
+        .delete(req.params.id)
+        .then(() => res.json({}))
+        .catch(err => {
+            next(new createError.InternalServerError(err.message));
+        });
+};
