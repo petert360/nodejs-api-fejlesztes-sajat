@@ -56,4 +56,19 @@ describe('REST API integration tests', () => {
                 });
             });
     });
+
+    test('GET /person/:id', () => {
+        let firstPostId;
+        return Person.insertMany(insertData)
+            .then(people => {
+                firstPostId = people[0]._id;
+                return supertest(app).get(`/person/${firstPostId}`).expect(200);
+            })
+            .then(response => {
+                const person = response.body;
+                expect(person.firstName).toBe(insertData[0].firstName);
+                expect(person.lastName).toBe(insertData[0].lastName);
+                expect(person.email).toBe(insertData[0].email);
+            });
+    });
 });
