@@ -45,7 +45,8 @@ exports.findOne = (req, res, next) => {
         if (!person) {
             return next(new createError.NotFound('Person not found'));
         }
-        return person;
+// HIBA A VIDEOBAN : "return person;" helyett az alábbi sor kell a teszthez:        
+        return res.json(person);
     });
 };
 
