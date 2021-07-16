@@ -9,13 +9,13 @@ describe('REST API integration tests', () => {
         {
             firstName: 'John',
             lastName: 'Test',
-            email: 'john@test.com'
+            email: 'john@test.com',
         },
         {
             firstName: 'Kate',
             lastName: 'Test',
-            email: 'kate@test.com'
-        }
+            email: 'kate@test.com',
+        },
     ];
 
     beforeEach(done => {
@@ -24,7 +24,7 @@ describe('REST API integration tests', () => {
         mongoose
             .connect(`mongodb+srv://${username}:${password}@${host}`, {
                 useNewUrlParser: true,
-                useUnifiedTopology: true
+                useUnifiedTopology: true,
             })
             .then(() => {
                 // done()-nal jelzem, hogy a beállítás megtörtént, kezdődhet a teszt
@@ -38,7 +38,22 @@ describe('REST API integration tests', () => {
 
     afterEach(done => {
         mongoose.connection.db.dropDatabase(() => {
-            mongoose.connection.close(() => done())
+            mongoose.connection.close(() => done());
         });
+    });
+
+    test('GET /person', () => {
+        return Person.insertMany(insertData)
+            .then(() => supertest(app).get('/person').expect(200))
+            .then(response => {
+                expect(Array.isArray(response.body)).toBeTruthy();
+                expect(response.body.length).toEqual(insertData.length);
+
+                response.body.forEach((person, index) => {
+                    expect(person.firstName).toBe(insertData[index].firstName);
+                    expect(person.lastName).toBe(insertData[index].lastName);
+                    expect(person.email).toBe(insertData[index].email);
+                });
+            });
     });
 });
