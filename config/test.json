@@ -2,6 +2,6 @@
     "database": {
         "username": "dbUser",
         "password": "dbUserPassword",
-        "host": "cluster0.6apci.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+        "host": "cluster0.6apci.mongodb.net/JestDB?retryWrites=true&w=majority"
     }
 }
