@@ -4,11 +4,17 @@ const logger = require('./config/logger');
 const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+
+// swagger docs
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./docs/swagger.yaml');
+
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // ha létezik a config, akkor eelmentjük az értékeket változókba
-const {username, password, host} = config.get('database');
+const { username, password, host } = config.get('database');
 
 // kapcsolódás az adatbázishoz
 mongoose
@@ -42,6 +48,8 @@ app.use(bodyParser.json());
 app.use('/person', require('./controllers/person/person.routes'));
 // Beállítjuk a /post URL-t is
 app.use('/post', require('./controllers/post/post.routes'));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((err, req, res, next) => {
     //console.error(`ERR ${err.statusCode}: ${err.message}`);
