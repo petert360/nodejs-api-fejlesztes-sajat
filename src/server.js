@@ -40,6 +40,8 @@ app.use(bodyParser.json());
 // A refaktorálás után erre sorra nincs szükség:
 // app.use('/person', require('./controllers/person/routes'));
 app.use('/person', require('./controllers/person/person.routes'));
+// Beállítjuk a /post URL-t is
+app.use('/post', require('./controllers/post/post.routes'));
 
 app.use((err, req, res, next) => {
     //console.error(`ERR ${err.statusCode}: ${err.message}`);
