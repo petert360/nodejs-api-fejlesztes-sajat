@@ -13,6 +13,10 @@ const swaggerDocument = YAML.load('./docs/swagger.yaml');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
+// Authentication
+const authenticateJwt = require('./auth/authenticate');
+const adminOnly = require('./auth/adminOnly');
+
 // ha létezik a config, akkor eelmentjük az értékeket változókba
 const { username, password, host } = config.get('database');
 
@@ -43,12 +47,14 @@ app.use(morgan('combined', { stream: logger.stream }));
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
-// A refaktorálás után erre sorra nincs szükség:
-// app.use('/person', require('./controllers/person/routes'));
-app.use('/person', require('./controllers/person/person.routes'));
-// Beállítjuk a /post URL-t is
-app.use('/post', require('./controllers/post/post.routes'));
 
+// Ha az url /login és post kérést kaptunk, akor a login.js middleware fog lefutni
+app.post('/login', require('./auth/login'));
+// Beékelhetünk több midelware-t, előbb az authenticatejwt, ami az authenticate.js-ben szereplően vizsgálaja az authorizációt és a usert elhelyezi a kérésben.
+// A /person url-t az érheti el, aki be van jelentkezve
+app.use('/person', authenticateJwt, require('./controllers/person/person.routes'));
+// A /post url-t az érheti el, aki be van jelentkezve és admin
+app.use('/post', authenticateJwt, adminOnly, require('./controllers/post/post.routes'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((err, req, res, next) => {
