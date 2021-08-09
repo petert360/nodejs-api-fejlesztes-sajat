@@ -8,7 +8,6 @@ const morgan = require('morgan');
 // swagger docs
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./docs/swagger.yaml');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -17,7 +16,9 @@ mongoose.Promise = global.Promise;
 const authenticateJwt = require('./auth/authenticate');
 const adminOnly = require('./auth/adminOnly');
 
-// ha létezik a config, akkor eelmentjük az értékeket változókba
+const swaggerDocument = YAML.load('./docs/swagger.yaml');
+
+// ha létezik a config, akkor elmentjük az értékeket változókba
 const { username, password, host } = config.get('database');
 
 // kapcsolódás az adatbázishoz
@@ -50,7 +51,8 @@ app.use(bodyParser.json());
 
 // Ha az url /login és post kérést kaptunk, akor a login.js middleware fog lefutni
 app.post('/login', require('./auth/login'));
-// Beékelhetünk több midelware-t, előbb az authenticatejwt, ami az authenticate.js-ben szereplően vizsgálaja az authorizációt és a usert elhelyezi a kérésben.
+
+// Beékelhetünk több middleware-t, előbb az authenticatejwt, ami az authenticate.js-ben szereplően vizsgálaja az authorizációt és a usert elhelyezi a kérésben.
 // A /person url-t az érheti el, aki be van jelentkezve
 app.use('/person', authenticateJwt, require('./controllers/person/person.routes'));
 // A /post url-t az érheti el, aki be van jelentkezve és admin
