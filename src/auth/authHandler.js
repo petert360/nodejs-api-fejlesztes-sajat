@@ -18,27 +18,38 @@ const Users = [
 const refreshTokens = [];
 
 // authenticate.js-ből
-module.exports = (req, res, next) => {
-    // Kiolvassuk a request headerjei közül az autharization adatokat.
-    const authHeader = req.headers.authorization;
+module.exports.refresh = (req, res, next) => {
+    // Kiolvassuk a meglévő tokent:
+    const { token } = req.body;
 
-    // Kiolvassuk a tokent
-    // az authHeader valahogy így néz ki: Bearer fsdlkjgsflgjksflskjfsfs
-    if (authHeader) {
-        const token = authHeader.split(' ')[1]; // cut the "Bearer" part from the beginning
-        // Ellenőrizzük a tokent
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            // Ha hibával tér visssza a verify, a status 403-nem sikerült azonosítani
-            if (err) {
-                return res.sendStatus(403);
-            }
-            // Ha nincs hiba:, megkapjuk a usert
-            req.user = user;
-            next();
-        });
-    } else { // Ha nincs authHeader:
-        res.sendStatus(401);
+    // Ha nincs token:
+    if (!token) {
+        return res.sendStatus(401);
     }
+
+    // Ha van token, de ne mazonos, nem szerepel a listánkban:
+    if (!refreshTokens.includes(token)) {
+        return res.sendStatus(403);
+    }
+
+    // Ellenőrizzük a tokent
+    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        // Ha hibával tér visssza a verify, a status 403-nem sikerült azonosítani
+        if (err) {
+            return res.sendStatus(403);
+        }
+        // Ha nincs hiba, új tokent állítunk ki:
+        const accessToken = jwt.sign({
+            username: user.username,
+            role: user.role
+        }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: process.env.TOKEN_EXPIRY
+        });
+            
+        res.json({
+            accessToken
+        });
+    });
 };
 
 //login.js-ből érkezett
