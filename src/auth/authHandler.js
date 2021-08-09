@@ -90,13 +90,10 @@ module.exports.login = (req, res) => {
 // Felhasználó kijelentkeztetése
 module.exports.logout = (req, res) => {
     const { token } = req.body;
-
-    if (refreshTokens.includes(token)) {
+    if (refreshTokens.indexOf(token) === -1) {
         res.sendStatus(403);
     }
-
-    const tokenIndex = refreshTokens.indexOf(token);
-    refreshTokens.splice(tokenIndex, 1);
-
+    refreshTokens.splice(refreshTokens.indexOf(token), 1);
     res.sendStatus(200);
 };
+

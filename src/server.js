@@ -15,6 +15,7 @@ mongoose.Promise = global.Promise;
 // Authentication
 const authenticateJwt = require('./auth/authenticate');
 const adminOnly = require('./auth/adminOnly');
+const authHandler = require('./auth/authHandler');
 
 const swaggerDocument = YAML.load('./docs/swagger.yaml');
 
@@ -49,8 +50,10 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
-// Ha az url /login és post kérést kaptunk, akor a login.js middleware fog lefutni
-app.post('/login', require('./auth/login'));
+// Ha az url /login /refresh /logout és post kérést kaptunk, az authHandler megfelelő metódusa fog lefutni
+app.post('/login', authHandler.login);
+app.post('/refresh', authHandler.refresh);
+app.post('/logout', authHandler.logout);
 
 // Beékelhetünk több middleware-t, előbb az authenticatejwt, ami az authenticate.js-ben szereplően vizsgálaja az authorizációt és a usert elhelyezi a kérésben.
 // A /person url-t az érheti el, aki be van jelentkezve

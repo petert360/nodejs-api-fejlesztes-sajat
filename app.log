@@ -128,3 +128,51 @@
 {"message":"MongoDB connection has been established successfully","level":"info"}
 {"message":"::1 - - [09/Aug/2021:19:55:03 +0000] \"POST /login HTTP/1.1\" 400 70 \"-\" \"-\"\n","level":"info"}
 {"message":"::1 - - [09/Aug/2021:19:56:48 +0000] \"POST /login HTTP/1.1\" 400 70 \"-\" \"-\"\n","level":"info"}
+{"message":"MongoDB connection has been established successfully","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:06:10 +0000] \"POST /login HTTP/1.1\" 400 70 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:13:46 +0000] \"GET /person HTTP/1.1\" 400 70 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:14:09 +0000] \"GET /person HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:14:43 +0000] \"GET /person HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:15:05 +0000] \"POST /login HTTP/1.1\" 200 166 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:15:14 +0000] \"POST /login HTTP/1.1\" 200 166 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:15:15 +0000] \"POST /login HTTP/1.1\" 200 166 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:15:15 +0000] \"POST /login HTTP/1.1\" 200 166 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:15:15 +0000] \"POST /login HTTP/1.1\" 200 166 \"-\" \"-\"\n","level":"info"}
+{"message":"::ffff:127.0.0.1 - - [09/Aug/2021:20:15:16 +0000] \"POST /login HTTP/1.1\" 200 166 \"-\" \"-\"\n","level":"info"}
+{"message":"MongoDB connection has been established successfully","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:04:34 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:06:43 +0000] \"GET /person HTTP/1.1\" 200 982 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:08:34 +0000] \"POST /refresh HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:12:49 +0000] \"POST /refresh HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:12:50 +0000] \"POST /refresh HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:15 +0000] \"POST /refresh HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:16 +0000] \"POST /refresh HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:22 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:23 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:23 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:24 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:24 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:25 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:28 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:29 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:30 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:30 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:31 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"MongoDB connection has been established successfully","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:49 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:13:57 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:14:04 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:14:22 +0000] \"GET /person HTTP/1.1\" 200 982 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:14:28 +0000] \"GET /person HTTP/1.1\" 200 982 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:15:15 +0000] \"POST /refresh HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:15:15 +0000] \"POST /refresh HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:15:16 +0000] \"POST /refresh HTTP/1.1\" 401 12 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:17:38 +0000] \"POST /refresh HTTP/1.1\" 200 189 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:18:44 +0000] \"POST /refresh HTTP/1.1\" 200 189 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:23:52 +0000] \"POST /logout HTTP/1.1\" undefined 9 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:24:59 +0000] \"POST /login HTTP/1.1\" 200 355 \"-\" \"-\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:25:12 +0000] \"POST /logout HTTP/1.1\" undefined 9 \"-\" \"-\"\n","level":"info"}
+{"message":"MongoDB connection has been established successfully","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:26:29 +0000] \"GET /person HTTP/1.1\" 401 12 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:26:38 +0000] \"POST /login HTTP/1.1\" 200 355 \"http://localhost:3000/person\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36\"\n","level":"info"}
+{"message":"::1 - - [09/Aug/2021:21:27:23 +0000] \"POST /logout HTTP/1.1\" undefined 9 \"http://localhost:3000/person\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36\"\n","level":"info"}
